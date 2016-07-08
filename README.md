@@ -6,3 +6,4 @@ new branch change;
 checkout user name and email;
 creating a new branch is quick and simple;
 transfer code to a new count;
+test if id_rsa_github works;
