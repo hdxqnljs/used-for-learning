@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+  当前浏览器不支持canvas，请更换浏览器后重试。
+</canvas>
+<!-- 鼠标交互的离屏canvas开始 -->
+<canvas id="mouseCanvas" style="display: none;"></canvas>
+<!-- 鼠标交互的离屏canvas结束 -->
+<!-- 水印canvas开始 -->
+<!-- <canvas id="waterMarket" style="display: none;"></canvas> -->
+<!-- 水印canvas结束 -->
+  <script type="text/javascript">
+  var canvas=document.getElementById("canvas");
+  var context=canvas.getContext("2d");
+  var mouseCanvas=document.getElementById("mouseCanvas");
+  var mouseContext=mouseCanvas.getContext("2d");
+  var scale=0;
+  /*//水印canvas
+  var waterCanvas=document.getElementById("waterMarket");
+  var waterContext=waterCanvas.getContext("2d")
+  */
+  var image=new Image();
+
+  window.onload=function(){
+    canvas.width=1000;
+    canvas.height=563;
+    /*//水印canvas
+    waterCanvas.width=250;
+    waterCanvas.height=100;
+
+    waterContext.font="bold 50px Arial";
+    waterContext.fillStyle="rgba(255,255,255,.5)";
+    waterContext.textBaseline="middle";
+    waterContext.fillText("hdxqnljs",20,50);
+    */
+    image.src="../img/14.jpg";
+    image.onload=function(){
+      mouseCanvas.width=image.width;
+      mouseCanvas.height=image.height;
+      scale=Math.round(mouseCanvas.width/canvas.width);
+      context.drawImage(image,0,0,canvas.width,canvas.height);
+      mouseContext.drawImage(image,0,0);
+      //context.drawImage(waterCanvas,canvas.width - waterCanvas.width,canvas.height - waterCanvas.height);
+
+    };
+
+    canvas.onmousedown=function(e){
+      e.preventDefault();
+      var point=windowToCanvas(e.clientX,e.clientY);
+      canvas.onmousemove=canvasMousemove;
+      drawMouseCanvas(true,point);
+    };
+    canvas.onmouseup=function(e){
+      e.preventDefault();
+      canvas.onmousemove=null;
+      drawMouseCanvas(false);
+    };
+    canvas.onmouseout=function(e){
+      e.preventDefault();
+      canvas.onmousemove=null;
+      drawMouseCanvas(false);
+    };
+  };
+
+  function windowToCanvas(x,y){
+    var bbox=canvas.getBoundingClientRect();
+    return {x:x - bbox.left,y:y - bbox.top};
+  }
+  function drawMouseCanvas(isDraw,point){
+    context.clearRect(0,0,canvas.width,canvas.height);
+    context.drawImage(image,0,0,canvas.width,canvas.height);
+    if(isDraw){
+      drawMouseCanvasFn(point);
+    }
+  }
+  function drawMouseCanvasFn(point){
+    var cx=point.x*scale,
+        cy=point.y*scale,
+        mr=200,
+        sx=cx - mr,
+        sy=cy - mr,
+        dx=point.x - mr,
+        dy=point.y - mr;
+
+        context.save();
+
+        //context.lineWidth=10.0;
+        //context.strokeStyle="#069";
+        context.beginPath();
+        context.arc(point.x,point.y,mr,0,Math.PI*2);
+        //context.stroke();
+        context.clip();
+        context.drawImage(mouseCanvas,sx,sy,2*mr,2*mr,dx,dy,2*mr,2*mr);
+
+        context.restore();
+  }
+  function canvasMousemove(e){
+    e.preventDefault();
+    var point=windowToCanvas(e.clientX,e.clientY);
+    drawMouseCanvas(true,point);
+  }
+  </script>
+</body>
+</html>

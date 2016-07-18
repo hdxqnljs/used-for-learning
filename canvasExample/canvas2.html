@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  .liEles{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 3px 10px;
+    position: relative;
+  }
+  .liElesDiv,
+  .inputBtn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    margin: 0 0 0 0;
+    background: url(../img/chooseBtn.png) no-repeat;
+    background-position: 0 0;
+  }
+  .inputBtn{
+    z-index: 999;
+    opacity: 0;
+  }
+  .inputBtn:checked + .liElesDiv{
+    background-position: 0 -24px;
+  }
+  </style>
+</head>
+<body>
+    <div style="margin: 60px auto;width: 1120px;text-align: center;">
+        <canvas id="canvasa" width="510" height="510" style="display: inline-block;margin: 0 40px 0 0;border: 1px solid #aaa;"></canvas><canvas id="canvasb" width="510" height="510" style="display: inline-block;margin: 0 0 0 40px;border: 1px solid #aaa;"></canvas>
+    </div>
+    <ul style="display: block;height: 30px;line-height: 30px;margin: 20px auto;padding: 0 0 0 0;text-align: center;list-style: none;">
+    <li class="liEles" data-id="1">
+      <input type="radio" class="inputBtn" name="inputBtnName">
+      <div class="liElesDiv"></div>
+    </li>
+    <li class="liEles" data-id="2">
+      <input type="radio" class="inputBtn" name="inputBtnName">
+      <div class="liElesDiv"></div>
+    </li>
+    <li class="liEles" data-id="3">
+      <input type="radio" class="inputBtn" name="inputBtnName">
+      <div class="liElesDiv"></div>
+    </li>
+    <li class="liEles" data-id="4">
+      <input type="radio" class="inputBtn" name="inputBtnName">
+      <div class="liElesDiv"></div>
+    </li>
+    <li class="liEles" data-id="5">
+      <input type="radio" class="inputBtn" name="inputBtnName">
+      <div class="liElesDiv"></div>
+    </li>
+      
+    </ul>
+  <script type="text/javascript">
+  var canvasa=document.getElementById("canvasa");
+  var canvasb=document.getElementById("canvasb");
+  var contexta=canvasa.getContext("2d");
+  var contextb=canvasb.getContext("2d");
+  var image=new Image();
+
+  window.onload=function(){
+    image.src="../img/pz-4.jpg";
+    image.onload=function(){
+      contexta.drawImage(image,0,0,canvasa.width,canvasa.height);
+       contextb.drawImage(image,0,0,canvasb.width,canvasb.height);
+    };
+
+  };
+
+  </script>
+</body>
+</html>
