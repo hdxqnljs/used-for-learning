@@ -3,8 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' ,
-						data:["学习笔记一","学习笔记二","学习笔记三"]});
+  // res.render('photoChange', {data:
+  // 								["去红","去绿","去蓝","灰度","黑白","反色","模糊"]
+  // 			});
+  res.render('index',{title:'首页'});
 });
  
 module.exports = router;

@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel="stylesheet" href="../webuploader-0.1.5/webuploader.css">
   <style>
   .liEles{
     display: inline-block;
@@ -20,7 +19,7 @@
     width: 24px;
     height: 24px;
     margin: 0 0 0 0;
-    background: url(../img/chooseBtn.png) no-repeat;
+    background: url(/images/chooseBtn.png) no-repeat;
     background-position: 0 0;
   }
   .inputBtn{
@@ -30,22 +29,40 @@
   .inputBtn:checked + .liElesDiv{
     background-position: 0 -24px;
   }
-  #upload{
-    width: 100px;
-    height: 35px;
-    border: 1px solid #999;
-    margin:0 auto;
+  .intro{
+    position: absolute;
+    width: 50px;
+    top: 100%;
+    left: 50%;
+    margin: 0 0 0 -25px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: '微软雅黑 Regular','微软雅黑';
+    color: #333333;
   }
   </style>
 </head>
 <body>
     <div style="margin: 60px auto;width: 1120px;text-align: center;">
-        <canvas id="canvasa" width="510" height="510" style="display: inline-block;margin: 0 40px 0 0;border: 1px solid #aaa;"></canvas><canvas id="canvasb" width="510" height="510" style="display: inline-block;margin: 0 0 0 40px;border: 1px solid #aaa;"></canvas>
+        <canvas id="canvasa" width="510" height="510" style="display: inline-block;margin: 0 40px 0 0;border: 1px solid #aaa;">您的浏览器不支持canvas，请使用chrome等最新浏览器。</canvas><canvas id="canvasb" width="510" height="510" style="display: inline-block;margin: 0 0 0 40px;border: 1px solid #aaa;">您的浏览器不支持canvas，请使用chrome等最新浏览器。</canvas>
     </div>
     <ul style="display: block;height: 30px;line-height: 30px;margin: 20px auto;padding: 0 0 0 0;text-align: center;list-style: none;">
-    <li class="liEles" data-id="1" onclick="liElesEvent(this)">
+      <%
+            data.forEach(function(value,key){%>
+              <li class="liEles" data-id="<%= key+1 %>" onclick="liElesEvent(this)">
+                <input type="radio" class="inputBtn" name="inputBtnName">
+                <div class="liElesDiv"></div>
+                <span class="intro"><%= value %></span>
+              </li>
+            <%})
+     %>
+
+
+    <!-- <li class="liEles" data-id="1" onclick="liElesEvent(this)">
       <input type="radio" class="inputBtn" name="inputBtnName">
       <div class="liElesDiv"></div>
+      <span class="intro"></span>
     </li>
     <li class="liEles" data-id="2" onclick="liElesEvent(this)">
       <input type="radio" class="inputBtn" name="inputBtnName">
@@ -70,73 +87,21 @@
     <li class="liEles" data-id="7" onclick="liElesEvent(this)">
       <input type="radio" class="inputBtn" name="inputBtnName">
       <div class="liElesDiv"></div>
-    </li>    
+    </li>     -->
     </ul>
-    <div id="upload"></div>
-    <script type="text/javascript" src="../jquery-2.1.3.min.js"></script>
-  <script type="text/javascript" src="../webuploader-0.1.5/webuploader.js"></script>
   <script type="text/javascript">
   var canvasa=document.getElementById("canvasa");
   var canvasb=document.getElementById("canvasb");
   var contexta=canvasa.getContext("2d");
   var contextb=canvasb.getContext("2d");
   var image=new Image();
-  window.onload=function(){ 
-    // 初始化Web Uploader
-      var uploader = WebUploader.create({
-
-        // 自动上传。
-        auto: false,
-        // swf文件路径
-        swf: '../webuploader-0.1.5/Uploader.swf',
-        // 文件接收服务端。
-        server:"/index.php?ro=materialimage&ra=uploadimage",
-        // 选择文件的按钮。可选。
-        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: '#upload',
-
-        // 只允许选择文件，可选。
-        accept: {
-            title: 'Images',
-            extensions: 'gif,jpg,jpeg,bmp,png',
-            mimeTypes: 'image/*'
-        }
-    });
-      // 当有文件添加进来的时候
-    uploader.on( 'fileQueued', function( file ) {
-        // 创建缩略图
-        uploader.makeThumb( file, function( error, src ) {
-          var imgSrc=src;
-            if ( error ) {
-              imgSrc="";
-              return;
-            }
-            image.src=imgSrc;
-        },500,500);
-    });
-
-    // 文件上传过程中创建进度条实时显示。
-    uploader.on( 'uploadProgress', function( file, percentage ) {
-    });
-
-    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-    uploader.on( 'uploadSuccess', function( file, response ) {
-      
-    });
-
-    // 文件上传失败，现实上传出错。
-    uploader.on( 'uploadError', function( file ) {
-
-    });
-
-    // 完成上传完了，成功或者失败，先删除进度条。
-    uploader.on( 'uploadComplete', function( file ) {
-       uploader.removeFile( file );
-    });
-      // image.src="../img/pz-4.jpg";
-      image.onload=function(){
+  window.onload=function(){
+     image.src="/images/pz-4.jpg";
+    image.onload=function(){
           contexta.drawImage(image,0,0,canvasa.width,canvasa.height);
     };
+
+
   };
 
   var imageFn={

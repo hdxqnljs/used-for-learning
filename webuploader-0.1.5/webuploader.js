@@ -2118,8 +2118,8 @@
             thumb: {
                 width: 110,
                 height: 110,
-                quality: 70,
-                allowMagnify: true,
+                quality: 100,
+                allowMagnify: false,
                 crop: true,
                 preserveHeaders: false,
     
@@ -2127,7 +2127,7 @@
                 // 否则强制转换成指定的类型。
                 // IE 8下面 base64 大小不能超过 32K 否则预览失败，而非 jpeg 编码的图片很可
                 // 能会超过 32k, 所以这里设置成预览的时候都是 image/jpeg
-                type: 'image/jpeg'
+                //type: 'image/jpeg'
             },
     
             /**
