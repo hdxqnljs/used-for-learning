@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>     
+    <% include nav %>
+    <form method="post">
+          用户名：<input type="text" id="txtUserName" name="txtUserName" />
+          密码：<input type="password" id="txtUserPwd" name="txtUserPwd" />
+          <input type="submit" value="提交">
+    </form>
+    <ul class="reqUl">
+    <%	if(typeof userInfoGet!= "undefined" && userInfoGet != 0){%>
+			<li class="reqli">get请求解析</li>
+    	<%}else if(typeof userInfoPost!= "undefined" && userInfoPost != 0){%>
+			<li class="reqli">post请求解析</li>
+    	<%}
+    	data.forEach(function(value,key){%>
+              <li class="reqli"><%= value %></li>
+            <%});
+    %>
+    </ul>
+  </body>
+</html>

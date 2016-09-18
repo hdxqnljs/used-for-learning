@@ -1,0 +1,17 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+	display: block;
+	width: 200px;
+	margin: 10px auto;
+  color: #00B7FF;
+}
+.reqUl{
+	list-style: none;
+}
+.reqli{
+	margin: 5px 0;
+}
