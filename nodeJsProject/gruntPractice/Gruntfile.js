@@ -85,15 +85,14 @@ module.exports = function(grunt) {
             sourceMap:false
           },
           files:{
-            'static/css/target.css':'source/css/source.scss',
-            'static/css/target2.css':'source/css/source2.scss'
+            'static/css/target.css':'source/css/source.scss'
           },
       },
     },
     //watch任务监视插件
     watch:{
       mytask:{
-        files:'source/css/*.scss',
+        files:'source/css/source.scss',
         tasks:['sass']
       },
     },
@@ -107,5 +106,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   //设置grunt不带参数时默认执行的任务，可以有多项，任务名按照执行顺序依次写在第二个参数数组里
   //要执行确定的任务必须指定，例如 grunt babel:mytask 就会执行babel插件的mytask任务
-  grunt.registerTask('default', ['jshint:mytask']);
+  grunt.registerTask('default', ['sass']);
 };   

@@ -1,3 +1,5 @@
-var server = require("./server");
+let server = require("./server");
+let router = require("./router");
+let handlers = require("./handlers");
 
-server();
+server.startServer(router.route,handlers);
