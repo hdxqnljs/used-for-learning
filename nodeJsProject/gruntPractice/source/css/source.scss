@@ -1,6 +1,29 @@
+// @import 'part';
 $color: red;
+$pos: top;
+$px: 20px 30px 40px;
+$borderW: (left: 1px, top: 2px, right: 3px, bottom: 4px);
 .text{
 	color: $color;
 	font-size: 14px;
-} 
-@import 'source2';
+	margin-#{$pos}: nth($px,1);
+	border :{
+		style: solid;
+
+		left: {
+			width: 2px;
+		}
+	}    
+ 
+	@each $pos, $num in $borderW {
+		margin-#{$pos}: $num;
+	}
+  
+	&:hover {
+		margin-#{$pos}: nth($px,3);
+	}
+	
+	@at-root .child{
+		color: black;
+	}
+}  

@@ -82,7 +82,8 @@ module.exports = function(grunt) {
     sass:{
       dist:{
           options:{
-            sourceMap:false
+            sourceMap: false,
+            // style: 'compressed'
           },
           files:{
             'static/css/target.css':'source/css/source.scss'
