@@ -1,0 +1,55 @@
+	body{
+		background: purple;
+	}
+		#container{
+	
+	position: relative;
+	top: 200px;
+	left: 50%;
+	width: 450px;
+	/*min-height: 400px;*/
+	margin: 0 0 0 -300px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.text-div{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 40%;
+	height: 60%;
+	margin: auto auto;
+	font-size: 24px;
+	color: rgba(0,0,0,.5);
+}
+.bg-color{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(255,255,255,.5);
+	border-radius: 5px 5px 5px 5px;
+	/*-webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -ms-filter: blur(3px);
+    -o-filter: blur(3px);
+    filter: blur(3px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);*/
+	}
+	.u-el{
+		position: relative;
+		margin: 0 0 0 0;
+		padding: 40px 0 40px 0;
+		list-style: none;
+		z-index: 999;
+	}
+	.li-el{
+		display: block;
+		height: 35px;
+		padding: 0 0 0 40px;
+		line-height: 35px;
+		font-size: 16px;
+		color: rgba(0,0,0,.8);
+	}

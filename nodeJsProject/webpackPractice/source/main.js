@@ -1,5 +1,6 @@
-var greeter = require('./example');
+import React from 'react';
+import {render} from 'react-dom';
+import Greeter from './example';
+import './main.css';
 
-window.onload = function () {
-	document.getElementById('container').append(greeter());
-};
+render(<Greeter />, document.getElementById('container'));
