@@ -9479,6 +9479,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(52);
@@ -9507,22 +9509,57 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Greeter = function (_Component) {
   _inherits(Greeter, _Component);
 
-  function Greeter() {
+  function Greeter(props) {
     _classCallCheck(this, Greeter);
 
-    return _possibleConstructorReturn(this, (Greeter.__proto__ || Object.getPrototypeOf(Greeter)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Greeter.__proto__ || Object.getPrototypeOf(Greeter)).call(this, props));
+
+    _this.state = {
+      content: "noting to show!"
+    };
+    _this.console = _this.console.bind(_this);
+    return _this;
   }
 
   _createClass(Greeter, [{
+    key: 'console',
+    value: function (_console) {
+      function console(_x) {
+        return _console.apply(this, arguments);
+      }
+
+      console.toString = function () {
+        return _console.toString();
+      };
+
+      return console;
+    }(function (arg) {
+      var _this2 = this;
+
+      if (typeof arg == 'string') {
+        console.log(arg);
+      } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) == 'object') {
+        arg.stopPropagation();
+        arg.nativeEvent.stopImmediatePropagation();
+        this.setState({ content: arg.target.innerText }, function () {
+          return console.log(_this2.state);
+        });
+      }
+    })
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.console("组件安装完毕");
+    }
+  }, {
     key: 'render',
     value: function render() {
       var items = [];
       var k = 0;
       for (var i in _message2.default) {
-        //items.push({title:i,content:message[i]});
         items.push(_react2.default.createElement(
           'li',
-          { className: 'li-el', key: k },
+          { className: 'li-el', onClick: this.console, key: k },
           i,
           ' : ',
           _message2.default[i]
@@ -9531,14 +9568,30 @@ var Greeter = function (_Component) {
       }
       return _react2.default.createElement(
         'ul',
-        { className: 'u-el' },
-        items
+        { className: 'u-el', onClick: function onClick() {
+            return console.log("clicked");
+          } },
+        _react2.default.createElement(
+          'li',
+          { className: 'li-el', key: Date.now() },
+          this.state.content
+        ),
+        items,
+        _react2.default.createElement(LastliElement, { content: 'this is the end' })
       );
     }
   }]);
 
   return Greeter;
 }(_react.Component);
+
+var LastliElement = function LastliElement(props, context) {
+  return _react2.default.createElement(
+    'li',
+    { className: 'li-el' },
+    props.content
+  );
+};
 
 exports.default = Greeter;
 
@@ -9599,7 +9652,7 @@ __webpack_require__(83);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _reactDom.render)(_react2.default.createElement(_example2.default, null), document.getElementById('container'));
+(0, _reactDom.render)(_react2.default.createElement(_example2.default, { data: 'ssssss' }), document.getElementById('container'));
 
 /***/ }),
 /* 85 */
@@ -11528,7 +11581,7 @@ exports = module.exports = __webpack_require__(88)(undefined);
 
 
 // module
-exports.push([module.i, "\tbody{\r\n\t\tbackground: purple;\r\n\t}\r\n\t\t#container{\r\n\t\r\n\tposition: relative;\r\n\ttop: 200px;\r\n\tleft: 50%;\r\n\twidth: 450px;\r\n\t/*min-height: 400px;*/\r\n\tmargin: 0 0 0 -300px;\r\n\tbox-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);\r\n}\r\n.text-div{\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\twidth: 40%;\r\n\theight: 60%;\r\n\tmargin: auto auto;\r\n\tfont-size: 24px;\r\n\tcolor: rgba(0,0,0,.5);\r\n}\r\n.bg-color{\r\n\tposition: absolute;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(255,255,255,.5);\r\n\tborder-radius: 5px 5px 5px 5px;\r\n\t/*-webkit-filter: blur(3px);\r\n    -moz-filter: blur(3px);\r\n    -ms-filter: blur(3px);\r\n    -o-filter: blur(3px);\r\n    filter: blur(3px);\r\n    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);*/\r\n\t}\r\n\t.u-el{\r\n\t\tposition: relative;\r\n\t\tmargin: 0 0 0 0;\r\n\t\tpadding: 40px 0 40px 0;\r\n\t\tlist-style: none;\r\n\t\tz-index: 999;\r\n\t}\r\n\t.li-el{\r\n\t\tdisplay: block;\r\n\t\theight: 35px;\r\n\t\tpadding: 0 0 0 40px;\r\n\t\tline-height: 35px;\r\n\t\tfont-size: 16px;\r\n\t\tcolor: rgba(0,0,0,.8);\r\n\t}", ""]);
+exports.push([module.i, "\tbody{\r\n\t\t/*background: purple;*/\r\n\t}\r\n\t\t#container{\r\n\t\r\n\tposition: relative;\r\n\ttop: 200px;\r\n\tleft: 50%;\r\n\twidth: 450px;\r\n\t/*min-height: 400px;*/\r\n\tmargin: 0 0 0 -300px;\r\n\tbox-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);\r\n}\r\n.text-div{\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\twidth: 40%;\r\n\theight: 60%;\r\n\tmargin: auto auto;\r\n\tfont-size: 24px;\r\n\tcolor: rgba(0,0,0,.5);\r\n}\r\n.bg-color{\r\n\tposition: absolute;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(255,255,255,.5);\r\n\tborder-radius: 5px 5px 5px 5px;\r\n\t/*-webkit-filter: blur(3px);\r\n    -moz-filter: blur(3px);\r\n    -ms-filter: blur(3px);\r\n    -o-filter: blur(3px);\r\n    filter: blur(3px);\r\n    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);*/\r\n\t}\r\n\t.u-el{\r\n\t\tposition: relative;\r\n\t\tmargin: 0 0 0 0;\r\n\t\tpadding: 40px 0 40px 0;\r\n\t\tlist-style: none;\r\n\t\tz-index: 999;\r\n\t}\r\n\t.li-el{\r\n\t\tdisplay: block;\r\n\t\theight: 35px;\r\n\t\tpadding: 0 0 0 40px;\r\n\t\tline-height: 35px;\r\n\t\tfont-size: 16px;\r\n\t\tcolor: rgba(0,0,0,.8);\r\n\t}", ""]);
 
 // exports
 

@@ -1,8 +1,13 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+new webpack.DefinePlugin({
+  "process.env": {
+    NODE_ENV: JSON.stringify("production")
+  }
+});
 
 module.exports = {
 	//devtool: 'eval-source-map',
@@ -19,7 +24,7 @@ module.exports = {
 			{test: /\.css$/, loader: 'style-loader!css-loader'},
 			{test: /\.js$/, loader: 'babel-loader', query: {presets: ['es2015','react']},exclude: /node_modules/, include: [path.resolve(__dirname,'source')]}
 		]
-	},
+	}, 
 	resolve: {
 		extensions: ['.css','.js',',json']
 	}
