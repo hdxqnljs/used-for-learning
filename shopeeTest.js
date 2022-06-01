@@ -96,18 +96,24 @@ Cache.prototype.set = function(key, value) {
 Cache.prototype.get = function(key) {
   let result = null;
   let i = 0;
-  let currentEl = this.lastEl ? this.lastEl.next : null;
+  let currentEl = this.lastEl;
   while (i < this.currentLen) {
-    if (currentEl.key === key) {
-      result = currentEl.value;
+    if (currentEl.next.key === key) {
+      result = currentEl.next;
+      currentEl.next = result.next;
+      // 上面两步把目标元素截取出来
+      // 例如  A -> B -> C -> A 变成了A -> C -> A， B被完全拿了出来
+      this.lastEl.next = result;
+      result.next = currentEl;
+      // 这两步把查找的的元素B放到末尾，并保持数据结构，例如 A -> C -> B -> A 
+      this.lastEl = result;
+      // 最后保持lastEl指向末尾元素
       break;
     }
     currentEl = currentEl.next;
     i++;
   }
-
-  // console.log('====== ', result);
-  return result; 
+  return result ? result.value : null; 
 };
 
 
